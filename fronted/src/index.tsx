@@ -25,6 +25,7 @@ ReactDOM.render(
               <Route exact  path= "/" component={VideoList} />            
                 
               <Route path= "/new-video" component={VideoForm} />
+              <Route path= "/update/:id" component={VideoForm} />
                                       
               {/* Crear Ruta para autenticacion */}
             </Switch>

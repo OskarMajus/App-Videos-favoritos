@@ -1,29 +1,55 @@
 
-import React, { ChangeEvent, FormEvent, useState} from 'react'
+import React, { ChangeEvent, FormEvent, useState, useEffect} from 'react'
 import {Video} from './Video'
 import * as videoService from './VideoService';
 import { toast } from 'react-toastify';
-import {useHistory} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 
 
 
 type InputChane = ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 
+interface  Params {
+    id?: string;
+}
+
 const VideoForm = () => {
 
-    const history = useHistory()
+    const history = useHistory();
+    const params = useParams<Params>();
+    
 
     const [video, setVideo] = useState<Video>({titulo:"", url:"", descripcion:""})
+    
+    const getVideo= async (id:string)=>{
+        const respuesta = await videoService.obtenerVideo(id);
+        const {titulo, descripcion, url}= respuesta.data;
+        setVideo({titulo, url, descripcion})
+    }
+
+    useEffect(() => {
+        if (params.id) getVideo(params.id);
+      }, [params.id]);
+    
+    
     const handleInputChange = (e: InputChane) => {
         setVideo({...video, [e.target.name]: e.target.value})
     }
 
     const handleSubmit = async (e:FormEvent<HTMLFormElement>) =>{
         e.preventDefault();
-        await videoService.crearVideos(video);
-        toast.success('Nuevo video agregado')
+        if (!params.id) {
+            await videoService.crearVideos(video);
+            toast.success('Nuevo video agregado')
+        }else{
+            await videoService.actualizarVideo(params.id, video);
+        }
+
         history.push('/')
-    }
+    };
+
+    
+
 
     return (
        <div className="row">
@@ -63,9 +89,12 @@ const VideoForm = () => {
 
                                 </textarea>
                             </div>
-                            <button className="btn btn-primary">
-                                Crear Vídeo
-                            </button>
+                            {
+                                params.id ? 
+                                <button className="btn btn-info" >Actualizar Vídeo</button>
+                                :
+                                <button className="btn btn-primary" >Crear Vídeo</button>
+                            }
 
                       </form>
                    </div>
