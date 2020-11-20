@@ -9,6 +9,7 @@ import { ToastContainer } from 'react-toastify';
 import VideoList from './components/Videos/VideoList';
 import VideoForm from './components/Videos/VideoForm';
 import Navbar from './components/Navbar/Navbar';
+import Login from './components/Login/Login'
 
 import 'bootswatch/dist/pulse/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css'
@@ -18,10 +19,11 @@ ReactDOM.render(
   <React.StrictMode>
      <BrowserRouter>
     <Navbar/>
-    
+   
       
          <div className="container p-4">
             <Switch>
+              
               <Route exact  path= "/" component={VideoList} />            
                 
               <Route path= "/new-video" component={VideoForm} />

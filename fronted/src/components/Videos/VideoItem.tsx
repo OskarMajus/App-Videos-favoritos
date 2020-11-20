@@ -8,7 +8,7 @@ import './VideoItem.css'
 
 interface Props{
     video: Video;
-    loadVideos: ()=>void;
+    loadVideos: () => void;
 }
 
 
@@ -21,15 +21,15 @@ const VideoItem = ({video, loadVideos}:Props) => {
         loadVideos();
     }
    
-   
-
     return (
         <div className="col-md-4">
-            <div className="card card-body video-card" 
+            <div className="card card-body video-card animate__animated animate__backInUp " 
                 style={{cursor:'pointer'}} 
+                //onClick={()=> history.push(`/update/${video._id}`)}
             >
                 <div className="d-flex justify-content-between">
-                    <h1 onClick={()=>history.push(`/update/${video._id}`)}>{video.titulo}</h1>
+                    {/* <h1 onClick={()=>history.push(`/update/${video._id}`)}>{video.titulo}</h1> */}
+                    <h3 onClick={()=>history.push(`/update/${video._id}`)}>{video.titulo}</h3>
                     <span className="text-danger" onClick={()=> video._id && handleDelete(video._id)}>
                         X
                     </span>
