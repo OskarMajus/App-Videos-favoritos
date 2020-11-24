@@ -19,10 +19,12 @@ ReactDOM.render(
   <React.StrictMode>
      <BrowserRouter>
     <Navbar/>
-   
+    
       
          <div className="container p-4">
             <Switch>
+
+            <Route exact  path= "/login" component={Login} />
               
               <Route exact  path= "/" component={VideoList} />            
                 

@@ -4,6 +4,7 @@ import {Video} from './Video'
 import * as videoService from './VideoService';
 import { toast } from 'react-toastify';
 import {useHistory, useParams} from 'react-router-dom';
+import Navbar from '../Navbar/Navbar';
 
 
 
@@ -13,7 +14,8 @@ interface Params {
     id: string;
 }
 const VideoForm = () => {
-
+    
+<Navbar/>
     const history = useHistory();
     const params = useParams<Params>();
     console.log(params);
